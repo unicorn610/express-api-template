@@ -1,8 +1,19 @@
 environment:
-  matrix:
-  - nodejs_version: "12"
+    matrix:
+        - nodejs_version: '12'
+        - nodejs_version: '11'
+        - nodejs_version: '10'
+        - nodejs_version: '8'
 install:
-  - yarn
+    # https://www.appveyor.com/docs/lang/nodejs-iojs/#installing-any-version-of-nodejs-or-iojs
+    - ps: |
+          try {
+          Install-Product node $env:nodejs_version $env:platform
+          } catch {
+          echo "Unable to install node $env:nodejs_version, trying update..."
+          Update-NodeJsInstallation (Get-NodeJsLatestBuild $env:nodejs_version) $env:platform
+          }
+    - yarn
 test_script:
-  - yarn test
+    - yarn test
 build: off
