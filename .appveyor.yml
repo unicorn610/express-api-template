@@ -10,7 +10,6 @@ platform:
 install:
     # https://www.appveyor.com/docs/lang/nodejs-iojs/#installing-any-version-of-nodejs-or-iojs
     - ps: Update-NodeJsInstallation (Get-NodeJsLatestBuild $env:nodejs_version) $env:PLATFORM
-    - npm install
     - yarn
 test_script:
     - yarn test
